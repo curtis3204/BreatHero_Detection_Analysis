@@ -20,7 +20,7 @@ class Proper(object):
 
 
 ##################################
-Folder_name = 'FireBreath_bare/'
+Folder_name = 'FullBreath_bare/'
 ##################################
 
 #Read Files
@@ -65,13 +65,13 @@ def Init_all_Properties(object, raw):
 #False Analysis
 def False_Calcuate(object, breath):
     if (breath == 'FireBreath'):
-        false_number = len(object.parameter['Record']) - 5
+        false_number = abs(len(object.parameter['Record']) - 5)
         return false_number
     elif (breath == 'BoxBreath'):
-        false_number = len(object.parameter['Record']) - 4
+        false_number = abs(len(object.parameter['Record']) - 4)
         return false_number
     elif (breath == 'FullBreath'):
-        false_number = len(object.parameter['Record']) - 2
+        false_number = abs(len(object.parameter['Record']) - 2)
         return false_number
 
 
@@ -107,11 +107,11 @@ for i in range(0,len(csv_files)):
 #Accuracy Analysis
 false_total = 0
 for i in range(0,len(csv_files)):
-    false_total = false_total + False_Calcuate(globals()['File'+str(i)], 'FireBreath')
+    false_total = false_total + False_Calcuate(globals()['File'+str(i)], 'FullBreath')
 
 print('\nfalse_total: ', false_total)
-accuracy_num = ((5 * len(csv_files))-false_total) / (5 * len(csv_files))
-print('accuracy_num: ', accuracy_num)
+accuracy_num = ((2 * len(csv_files))-false_total) / (2 * len(csv_files))
+print('accuracy_num: ',Folder_name, accuracy_num)
 print('\n')
 
 
@@ -136,7 +136,6 @@ num = 9
 selected_object = globals()['File'+str(num)]
 ####################
 
-
 ax1_x = np.arange(0,len(selected_object.basic['Flex'])/60, 1/60)
 ax1_y = selected_object.basic['Flex']
 s_ax1, s_ay1 = smooth(ax1_x, ax1_y)
@@ -148,13 +147,6 @@ s_ax2, s_ay2 = smooth(ax2_x, ax2_y)
 ax2.plot(s_ax2, s_ay2, color='tab:orange', alpha=0.85,linewidth=1.2)
 
 
-
-
-
-# sFlex_x, sFlex_y = smooth(np.arange(0, raw.shape[0]), FireBreath.basic['Flex'])
-# sSpeed_x, sSpeed_y = smooth(np.arange(0, raw.shape[0]), FireBreath.basic['Speed'])
-
-
 #Plot Flex
 ax1.set_ylabel('flex_sensor', color='tab:blue', fontsize = 13)
 ax1.tick_params(axis='y', labelcolor='tab:blue')
@@ -163,7 +155,7 @@ ax1.set_ylim(10000, 15000)
 #Plot Speed
 ax2.set_ylabel('speed_sensor', color='tab:orange', fontsize = 13)
 ax2.tick_params(axis='y', labelcolor='tab:orange')
-ax2.set_ylim(0, 12)
+ax2.set_ylim(0, 30)
 
 
 #Action / Record Vertical Line
@@ -183,5 +175,12 @@ Figure_name = (csv_files[num].split('/')[-1]).split('.')[0]
 
 plt.title(Figure_name,  fontsize = 20)
 plt.savefig(Folder_name+Figure_name+'.png')
-plt.show()
+# plt.show()
 
+
+#accuracy_num:  FireBreath_bare/ 0.8571428571428571
+#accuracy_num:  FireBreath_jacket/ 0.7142857142857143
+#accuracy_num:  BoxBreath_bare/ 0.9791666666666666
+#accuracy_num:  BoxBreath_jacket/ 1.0
+#accuracy_num:  FullBreath_bare/ 0.9583333333333334
+#accuracy_num:  FullBreath_jacket/ 0.9583333333333334
