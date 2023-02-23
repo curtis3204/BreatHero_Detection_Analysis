@@ -20,7 +20,7 @@ class Proper(object):
 
 
 ##################################
-Folder_name = 'FullBreath_bare/'
+Folder_name = 'BoxBreath_jacket/'
 ##################################
 
 #Read Files
@@ -55,6 +55,7 @@ def Init_all_Properties(object, raw):
             count = count + 1
         else:
             count = count + 1
+    print(len(object.basic['Flex']))
     print(object.parameter['Action'])
     print(object.parameter['Actiontime'])
     print(object.parameter['Record'])
@@ -84,11 +85,6 @@ def smooth(x, y):
     return x_smooth, y_smooth
 
 
-
-
-
-
-
 #################### Main ######################
 
 #Declare Objects
@@ -107,23 +103,29 @@ for i in range(0,len(csv_files)):
 #Accuracy Analysis
 false_total = 0
 for i in range(0,len(csv_files)):
-    false_total = false_total + False_Calcuate(globals()['File'+str(i)], 'FullBreath')
+    false_total = false_total + False_Calcuate(globals()['File'+str(i)], 'BoxBreath')
 
 print('\nfalse_total: ', false_total)
-accuracy_num = ((2 * len(csv_files))-false_total) / (2 * len(csv_files))
+accuracy_num = ((4 * len(csv_files))-false_total) / (4 * len(csv_files))
 print('accuracy_num: ',Folder_name, accuracy_num)
 print('\n')
 
 
+# for i in range(len(globals()['File'+str(0)].basic['Flex'])):
+#     if (globals()['File'+str(0)].basic['Flex']).isEmpty():
+#         print(i)
+
 
 #Plot All Files' Figure
 for i in range(0,len(csv_files)):
-    ax1_x = np.arange(0,len(globals()['File'+str(i)].basic['Flex'])/60, 1/60)
+    ax1_x = np.arange(0,len(globals()['File'+str(i)].basic['Flex']))
+    ax1_x = ax1_x/60
     ax1_y = globals()['File'+str(i)].basic['Flex']
     s_ax1, s_ay1 = smooth(ax1_x, ax1_y)
     ax1.plot(s_ax1, s_ay1, color='tab:blue', alpha=0.15, linewidth=0.55)
 
-    ax2_x = np.arange(0, len(globals()['File'+str(i)].basic['Speed'])/60, 1/60)
+    ax2_x = np.arange(0, len(globals()['File'+str(i)].basic['Speed']))
+    ax2_x = ax2_x/60
     ax2_y = globals()['File'+str(i)].basic['Speed']
     s_ax2, s_ay2 = smooth(ax2_x, ax2_y)
     ax2.plot(s_ax2, s_ay2, color='tab:orange', alpha=0.15,linewidth=0.55)
@@ -132,16 +134,18 @@ for i in range(0,len(csv_files)):
 
 ##Plot Single Figure
 #################### 10 11
-num = 9
+num = 10
 selected_object = globals()['File'+str(num)]
 ####################
 
-ax1_x = np.arange(0,len(selected_object.basic['Flex'])/60, 1/60)
+ax1_x = np.arange(0,len(selected_object.basic['Flex']))
+ax1_x = ax1_x/60
 ax1_y = selected_object.basic['Flex']
 s_ax1, s_ay1 = smooth(ax1_x, ax1_y)
 ax1.plot(s_ax1, s_ay1, color='tab:blue', alpha=0.85, linewidth=1.2)
 
-ax2_x = np.arange(0, len(selected_object.basic['Speed'])/60, 1/60)
+ax2_x = np.arange(0, len(selected_object.basic['Speed']))
+ax2_x = ax2_x/60
 ax2_y = selected_object.basic['Speed']
 s_ax2, s_ay2 = smooth(ax2_x, ax2_y)
 ax2.plot(s_ax2, s_ay2, color='tab:orange', alpha=0.85,linewidth=1.2)
@@ -155,7 +159,7 @@ ax1.set_ylim(10000, 15000)
 #Plot Speed
 ax2.set_ylabel('speed_sensor', color='tab:orange', fontsize = 13)
 ax2.tick_params(axis='y', labelcolor='tab:orange')
-ax2.set_ylim(0, 30)
+ax2.set_ylim(0, 20)
 
 
 #Action / Record Vertical Line
@@ -175,12 +179,12 @@ Figure_name = (csv_files[num].split('/')[-1]).split('.')[0]
 
 plt.title(Figure_name,  fontsize = 20)
 plt.savefig(Folder_name+Figure_name+'.png')
-# plt.show()
+plt.show()
 
 
-#accuracy_num:  FireBreath_bare/ 0.8571428571428571
-#accuracy_num:  FireBreath_jacket/ 0.7142857142857143
-#accuracy_num:  BoxBreath_bare/ 0.9791666666666666
-#accuracy_num:  BoxBreath_jacket/ 1.0
-#accuracy_num:  FullBreath_bare/ 1.0
-#accuracy_num:  FullBreath_jacket/ 0.9583333333333334
+#FireBreath_bare/ 0.8571428571428571
+#FireBreath_jacket/ 0.7142857142857143
+#BoxBreath_bare/ 0.9791666666666666
+#BoxBreath_jacket/ 1.0
+#FullBreath_bare/ 1.0
+#FullBreath_jacket/ 0.9583333333333334
