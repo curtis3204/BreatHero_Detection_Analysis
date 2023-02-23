@@ -182,5 +182,5 @@ plt.savefig(Folder_name+Figure_name+'.png')
 #accuracy_num:  FireBreath_jacket/ 0.7142857142857143
 #accuracy_num:  BoxBreath_bare/ 0.9791666666666666
 #accuracy_num:  BoxBreath_jacket/ 1.0
-#accuracy_num:  FullBreath_bare/ 0.9583333333333334
+#accuracy_num:  FullBreath_bare/ 1.0
 #accuracy_num:  FullBreath_jacket/ 0.9583333333333334
