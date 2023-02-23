@@ -20,7 +20,7 @@ class Proper(object):
 
 
 ##################################
-Folder_name = 'BoxBreath_jacket/'
+Folder_name = 'FireBreath_bare/'
 ##################################
 
 #Read Files
@@ -134,7 +134,7 @@ for i in range(0,len(csv_files)):
 
 ##Plot Single Figure
 #################### 10 11
-num = 10
+num = 9
 selected_object = globals()['File'+str(num)]
 ####################
 
@@ -159,7 +159,7 @@ ax1.set_ylim(10000, 15000)
 #Plot Speed
 ax2.set_ylabel('speed_sensor', color='tab:orange', fontsize = 13)
 ax2.tick_params(axis='y', labelcolor='tab:orange')
-ax2.set_ylim(0, 20)
+ax2.set_ylim(0, 30)
 
 
 #Action / Record Vertical Line
@@ -177,7 +177,7 @@ ax2.spines[:].set_alpha(0.2)
 
 Figure_name = (csv_files[num].split('/')[-1]).split('.')[0]
 
-plt.title(Figure_name,  fontsize = 20)
+plt.title(Folder_name+Figure_name,  fontsize = 20)
 plt.savefig(Folder_name+Figure_name+'.png')
 plt.show()
 
