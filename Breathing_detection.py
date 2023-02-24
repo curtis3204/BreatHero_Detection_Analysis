@@ -55,7 +55,6 @@ def Init_all_Properties(object, raw):
             count = count + 1
         else:
             count = count + 1
-    print(len(object.basic['Flex']))
     print(object.parameter['Action'])
     print(object.parameter['Actiontime'])
     print(object.parameter['Record'])
@@ -134,7 +133,7 @@ for i in range(0,len(csv_files)):
 
 ##Plot Single Figure
 #################### 10 11
-num = 9
+num = 11
 selected_object = globals()['File'+str(num)]
 ####################
 
